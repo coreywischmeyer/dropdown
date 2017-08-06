@@ -46,19 +46,39 @@ class QuoteBox:
         latex_answer_box = ""
         latex_puzzle_box = ""
 
-        for line in self.puzzle:
-            for letter in line:
+        for line_index, line in enumerate(self.puzzle):
+            for letter_index, letter in enumerate(line):
+                line_modifier = ""
+                cell_modifier = ""
+                if line_index is 0:
+                    line_modifier = "t"
+                if letter_index is 0:
+                    cell_modifier = "l"
+                if letter_index is len(line) - 1:
+                    cell_modifier = "r"
+                modifier = cell_modifier + line_modifier
                 if letter is " ":
-                    latex_answer_box += "|[][f]{}".format("x")
+                    latex_answer_box += "|[][{}f]{}".format(modifier, "x")
                 else:
-                    latex_answer_box += "|[][fS]{}".format(letter)
+                    latex_answer_box += "|[][{}fS]{}".format(modifier, letter)
             latex_answer_box += "|.\n"
-        for line in self.answer:
-            for letter in line:
+        for line_index, line in enumerate(self.answer):
+            for letter_index, letter in enumerate(line):
+                line_modifier = ""
+                cell_modifier = ""
+                if line_index is 0:
+                    line_modifier = "t"
+                if letter_index is 0:
+                    cell_modifier = "l"
+                if letter_index is len(line) - 1:
+                    cell_modifier = "r"
+                if line_index is len(self.answer) - 1:
+                    line_modifier = "b"
+                modifier = cell_modifier + line_modifier
                 if letter is " ":
-                    latex_answer_box += "|*"
+                    latex_answer_box += "|[][{}f]*".format(modifier)
                 else:
-                    latex_answer_box += "|{}".format(letter)
+                    latex_answer_box += "|[][{}f]{}".format(modifier,letter)
             latex_answer_box += "|.\n"
 
         #Start Jinja
@@ -66,7 +86,7 @@ class QuoteBox:
         import os
         import subprocess
         env = Environment(
-            loader=PackageLoader('word_games')
+            loader=PackageLoader('dropdown')
         )
         #Tex doesn't like '{{' and '}}'
         env.variable_start_string = '((('
