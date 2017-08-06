@@ -2,7 +2,7 @@
 
 A script to create dropdown puzzles in python3.
 
-![example of dropdown.py output](https://github.com/coreywischmeyer/dropdown/images/dropdown_example.png "Example output")
+![example of dropdown.py output](https://github.com/coreywischmeyer/dropdown/blob/master/images/dropdown_example.png)
 
 ## Prerequisites
 
