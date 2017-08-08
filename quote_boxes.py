@@ -39,7 +39,7 @@ class QuoteBox:
             puzzle.append(puzzle_line)
         return puzzle
 
-    def to_latex(self, filename="out"):
+    def to_latex(self, filename="out", answer_key=False):
         tex_filename = "{}.tex".format(filename)
         pdf_filename = "{}.pdf".format(filename)
         from pprint import pprint
@@ -66,14 +66,16 @@ class QuoteBox:
             for letter_index, letter in enumerate(line):
                 line_modifier = ""
                 cell_modifier = ""
+                if answer_key is True:
+                    cell_modifier += "S"
                 if line_index is 0:
-                    line_modifier = "t"
+                    line_modifier += "t"
                 if letter_index is 0:
-                    cell_modifier = "l"
+                    cell_modifier += "l"
                 if letter_index is len(line) - 1:
-                    cell_modifier = "r"
+                    cell_modifier += "r"
                 if line_index is len(self.answer) - 1:
-                    line_modifier = "b"
+                    line_modifier += "b"
                 modifier = cell_modifier + line_modifier
                 if letter is " ":
                     latex_answer_box += "|[][{}f]*".format(modifier)
